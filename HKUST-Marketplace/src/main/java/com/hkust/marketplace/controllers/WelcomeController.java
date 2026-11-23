@@ -3,6 +3,9 @@ package com.hkust.marketplace.controllers;
 import com.hkust.marketplace.utils.SceneManager;
 import javafx.fxml.FXML;
 
+/**
+ * Controller for the role selection landing screen.
+ */
 public class WelcomeController {
 
     @FXML
