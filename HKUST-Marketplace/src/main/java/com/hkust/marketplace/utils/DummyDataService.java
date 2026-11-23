@@ -536,8 +536,8 @@ public class DummyDataService {
      * Registers a buyer after validating the username, name and password.
      */
     public synchronized User registerBuyer(String username, String fullName,
-                                           String rawPassword, String confirmPassword,
-                                           String residenceHall) {
+                                          String rawPassword, String confirmPassword,
+                                          String residenceHall) {
         String key = username == null ? "" : username.trim().toLowerCase();
         if (!key.matches("[a-z0-9_]{3,20}")) {
             throw new IllegalArgumentException(
@@ -2090,8 +2090,8 @@ public class DummyDataService {
      * Submits a formal sale or borrow offer from a chat thread.
      */
     public synchronized ChatMessage sendFormalOffer(User actor, String threadId,
-                                                    Double price, LocalDateTime start,
-                                                    LocalDateTime end) {
+                                                   Double price, LocalDateTime start,
+                                                   LocalDateTime end) {
         ChatThreadInfo thread = chatThreadsById.get(threadId);
         if (thread == null) {
             throw new IllegalArgumentException("Chat thread not found.");

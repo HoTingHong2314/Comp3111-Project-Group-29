@@ -1,4 +1,4 @@
 /**
- * Seller portal controllers for listings, offers, chats, statistics and reviews.
+ * Shared JavaFX controllers for authentication and the welcome screen.
  */
-package com.hkust.marketplace.controllers.seller;
+package com.hkust.marketplace.controllers;
