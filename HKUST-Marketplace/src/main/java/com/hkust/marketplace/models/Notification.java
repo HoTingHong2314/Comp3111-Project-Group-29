@@ -2,6 +2,9 @@ package com.hkust.marketplace.models;
 
 import java.time.LocalDateTime;
 
+/**
+ * A user-facing notification with category, timestamp and read state.
+ */
 public class Notification {
     private String id;
     private String username; // recipient

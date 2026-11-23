@@ -10,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+/**
+ * Handles administrator authentication and navigation into the admin portal.
+ */
 public class AdminLoginController {
 
     @FXML private TextField usernameField;
@@ -27,17 +30,14 @@ public class AdminLoginController {
             showError("Please enter credentials.");
             return;
         }
-        User user = DummyDataService.getInstance().findUser(username);
-        if (user == null || user.getRole() != UserRole.ADMIN) {
-            showError("Invalid admin credentials.");
-            return;
+        try {
+            User user = DummyDataService.getInstance()
+                    .login(username, password, UserRole.ADMIN);
+            SessionManager.login(user);
+            SceneManager.showAdminDashboard();
+        } catch (IllegalArgumentException | IllegalStateException | SecurityException ex) {
+            showError(ex.getMessage());
         }
-        if (!user.getPasswordHash().equals(password)) {
-            showError("Incorrect password.");
-            return;
-        }
-        SessionManager.login(user);
-        SceneManager.showAdminDashboard();
     }
 
     private void showError(String msg) {
