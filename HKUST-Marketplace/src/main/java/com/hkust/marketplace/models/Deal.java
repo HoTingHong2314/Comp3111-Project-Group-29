@@ -3,6 +3,9 @@ package com.hkust.marketplace.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * A persisted offer, borrow request or giveaway claim between a buyer and seller.
+ */
 public class Deal {
     private String id;
     private String listingId;
