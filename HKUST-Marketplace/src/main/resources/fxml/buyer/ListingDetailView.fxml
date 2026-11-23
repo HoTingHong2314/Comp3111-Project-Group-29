@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hkust.marketplace.controllers.buyer.ListingDetailController"
+            fitToWidth="true" maxWidth="Infinity" maxHeight="Infinity"
+            style="-fx-background-color: transparent;">
+    <VBox spacing="14" style="-fx-padding: 4;">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button text="← Back to Browse" onAction="#goBack" styleClass="btn-outline, btn-sm"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="viewCountLabel" text="Views: 0" style="-fx-text-fill: #9aa0b0;"/>
+        </HBox>
+
+        <HBox fx:id="photoBox" spacing="8"/>
+
+        <HBox spacing="18">
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label fx:id="titleLabel" text="Listing title" styleClass="section-title"/>
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Label fx:id="typeLabel" text="Type" styleClass="badge"/>
+                    <Label fx:id="statusLabel" text="Status" styleClass="badge"/>
+                    <Label fx:id="priceLabel" text="Price"/>
+                </HBox>
+                <Label fx:id="metaLabel" text="Category · Condition"/>
+                <Label fx:id="meetupLabel" text="Meet-up location"/>
+                <Label fx:id="postedLabel" text="Posted date"/>
+                <Label fx:id="lendingLabel" text="Lending duration"/>
+                <Label text="Description" style="-fx-font-weight: bold; -fx-padding: 6 0 0 0;"/>
+                <Label fx:id="descriptionLabel" wrapText="true" text="Description"/>
+                <Label text="Seller" style="-fx-font-weight: bold; -fx-padding: 6 0 0 0;"/>
+                <Label fx:id="sellerNameLabel" text="Seller name"/>
+                <Label fx:id="sellerRatingLabel" text="Rating"/>
+                <Label fx:id="sellerBioLabel" wrapText="true" text="Seller bio"/>
+                <HBox fx:id="actionBox" spacing="8" style="-fx-padding: 8 0 0 0;"/>
+            </VBox>
+
+            <VBox spacing="8" prefWidth="330" styleClass="card">
+                <padding><Insets top="14" right="14" bottom="14" left="14"/></padding>
+                <Label text="Seller Reviews" style="-fx-font-weight: bold; -fx-font-size: 15px;"/>
+                <ScrollPane fitToWidth="true" prefHeight="380" style="-fx-background-color: transparent;">
+                    <VBox fx:id="reviewsBox" spacing="8"/>
+                </ScrollPane>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

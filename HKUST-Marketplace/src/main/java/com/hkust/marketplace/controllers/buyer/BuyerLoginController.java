@@ -10,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+/**
+ * Handles buyer authentication and navigation into the buyer portal.
+ */
 public class BuyerLoginController {
 
     @FXML private TextField usernameField;
@@ -29,27 +32,14 @@ public class BuyerLoginController {
             return;
         }
 
-        User user = DummyDataService.getInstance().findUser(username);
-        if (user == null) {
-            showError("User not found. Please check your username.");
-            return;
+        try {
+            User user = DummyDataService.getInstance()
+                    .login(username, password, UserRole.BUYER);
+            SessionManager.login(user);
+            SceneManager.showBuyerDashboard();
+        } catch (IllegalArgumentException | IllegalStateException | SecurityException ex) {
+            showError(ex.getMessage());
         }
-        if (user.getRole() != UserRole.BUYER) {
-            showError("This account is not a Buyer account. Please use the correct portal.");
-            return;
-        }
-        // Demo: plaintext comparison. TODO: use hashed password verification
-        if (!user.getPasswordHash().equals(password)) {
-            showError("Incorrect password. Please try again.");
-            return;
-        }
-        if (!user.isActive()) {
-            showError("This account has been deactivated. Contact admin.");
-            return;
-        }
-
-        SessionManager.login(user);
-        SceneManager.showBuyerDashboard();
     }
 
     private void showError(String msg) {
