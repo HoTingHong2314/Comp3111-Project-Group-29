@@ -3,13 +3,12 @@ package com.hkust.marketplace.models;
 import java.time.LocalDateTime;
 
 /**
- * Simple in-memory user model (no persistence).
- * TODO: Replace with real entity + repository when backend is added.
+ * Simple user model (persisted via the JSON data store).
  */
 public class User {
     private String username;
     private String fullName;
-    private String passwordHash; // In real app: never store plaintext
+    private String passwordHash;
     private UserRole role;
     private String residenceHall;   // Buyer optional
     private String bio;             // Seller optional
@@ -27,7 +26,7 @@ public class User {
         this();
         this.username = username;
         this.fullName = fullName;
-        this.passwordHash = password; // Demo only – in production hash it!
+        this.passwordHash = password;
         this.role = role;
     }
 

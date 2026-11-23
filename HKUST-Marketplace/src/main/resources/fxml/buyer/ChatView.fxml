@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hkust.marketplace.controllers.buyer.ChatController"
+      spacing="12" maxWidth="Infinity" maxHeight="Infinity" style="-fx-padding: 4;">
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="← Back" onAction="#goBack" styleClass="btn-outline, btn-sm"/>
+        <VBox spacing="2">
+            <Label fx:id="titleLabel" text="Listing" style="-fx-font-size: 17px; -fx-font-weight: bold; -fx-text-fill: #003974;"/>
+            <Label fx:id="subtitleLabel" text="Chat" style="-fx-text-fill: #5a5a7a; -fx-font-size: 12px;"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="formalOfferButton" text="Make Formal Offer" onAction="#sendFormalOffer" styleClass="btn-gold, btn-sm"/>
+    </HBox>
+
+    <TextField fx:id="searchField" promptText="Search this chat history..." maxWidth="Infinity"/>
+
+    <ScrollPane fx:id="messageScroll" fitToWidth="true" VBox.vgrow="ALWAYS"
+                style="-fx-background-color: transparent; -fx-border-color: #d0d7e2; -fx-border-radius: 8;">
+        <VBox fx:id="messageBox" spacing="10" style="-fx-padding: 12; -fx-background-color: #f8fafc;"/>
+    </ScrollPane>
+
+    <HBox spacing="8">
+        <TextField fx:id="inputField" promptText="Type a message..." HBox.hgrow="ALWAYS"/>
+        <Button text="Send" onAction="#sendMessage" styleClass="btn-primary"/>
+    </HBox>
+</VBox>
