@@ -1,12 +1,15 @@
 package com.hkust.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * In-memory listing model.
- * TODO: Persist to database and add photo storage when backend is ready.
+ * Listing model (persisted via the JSON data store).
  */
 public class Listing {
     private String id;
@@ -25,7 +28,7 @@ public class Listing {
     private LocalDateTime reviewedAt;
     private String rejectionReason;
     private int viewCount;
-    private List<String> photoPaths = new ArrayList<>(); // Demo: placeholder paths
+    private List<String> photoPaths = new ArrayList<>();
 
     public Listing() {
         this.postedAt = LocalDateTime.now();
@@ -85,9 +88,12 @@ public class Listing {
     public List<String> getPhotoPaths() { return photoPaths; }
     public void setPhotoPaths(List<String> photoPaths) { this.photoPaths = photoPaths; }
 
+    @JsonIgnore
     public String getPriceDisplay() {
         if (type == ListingType.SELL && price != null) {
-            return String.format("HK$ %.0f", price);
+            return "HK$ " + BigDecimal.valueOf(price)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .toPlainString();
         } else if (type == ListingType.LEND) {
             return "Borrow";
         } else {
@@ -95,6 +101,7 @@ public class Listing {
         }
     }
 
+    @JsonIgnore
     public String getTypeDisplay() {
         return switch (type) {
             case SELL -> "For Sale";
