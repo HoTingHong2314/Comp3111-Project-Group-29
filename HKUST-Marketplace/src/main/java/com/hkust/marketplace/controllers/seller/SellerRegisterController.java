@@ -8,6 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+/**
+ * Handles seller self-registration with profile and password validation.
+ */
 public class SellerRegisterController {
 
     @FXML private TextField usernameField;
@@ -32,23 +35,20 @@ public class SellerRegisterController {
         String password = passwordField.getText();
         String confirm = confirmPasswordField.getText();
 
-        if (username.isEmpty()) { showError("Username is required."); return; }
-        if (DummyDataService.getInstance().usernameExists(username)) {
-            showError("Username already taken."); return;
+        try {
+            DummyDataService.getInstance().registerSeller(
+                    username, fullName, password, confirm,
+                    meetupCombo.getValue(), bioArea.getText());
+            showSuccess("Seller account created! You can now login.");
+            usernameField.clear();
+            fullNameField.clear();
+            passwordField.clear();
+            confirmPasswordField.clear();
+            meetupCombo.getSelectionModel().clearSelection();
+            bioArea.clear();
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            showError(ex.getMessage());
         }
-        if (fullName.isEmpty()) { showError("Full Name cannot be empty."); return; }
-        String pwdCheck = DummyDataService.checkPasswordStrength(password);
-        if (!"OK".equals(pwdCheck)) { showError(pwdCheck); return; }
-        if (!password.equals(confirm)) { showError("Passwords do not match."); return; }
-
-        User user = new User(username.toLowerCase(), fullName, password, UserRole.SELLER);
-        if (meetupCombo.getValue() != null) user.setPreferredMeetup(meetupCombo.getValue());
-        if (bioArea.getText() != null && !bioArea.getText().isBlank()) user.setBio(bioArea.getText().trim());
-        DummyDataService.getInstance().registerUser(user);
-
-        showSuccess("Seller account created! You can now login.");
-        usernameField.clear(); fullNameField.clear(); passwordField.clear();
-        confirmPasswordField.clear(); meetupCombo.getSelectionModel().clearSelection(); bioArea.clear();
     }
 
     private void showError(String msg) {
