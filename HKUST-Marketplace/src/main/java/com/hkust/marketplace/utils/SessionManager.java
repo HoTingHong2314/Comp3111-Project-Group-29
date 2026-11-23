@@ -4,7 +4,6 @@ import com.hkust.marketplace.models.User;
 
 /**
  * Simple session holder for the currently logged-in user.
- * TODO: Replace with proper JWT / session token handling when backend is added.
  */
 public class SessionManager {
     private static User currentUser;
