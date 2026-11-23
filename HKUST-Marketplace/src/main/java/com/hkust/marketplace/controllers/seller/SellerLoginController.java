@@ -10,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+/**
+ * Handles seller authentication and navigation into the seller portal.
+ */
 public class SellerLoginController {
 
     @FXML private TextField usernameField;
@@ -27,25 +30,14 @@ public class SellerLoginController {
             showError("Please enter both username and password.");
             return;
         }
-        User user = DummyDataService.getInstance().findUser(username);
-        if (user == null) {
-            showError("User not found.");
-            return;
+        try {
+            User user = DummyDataService.getInstance()
+                    .login(username, password, UserRole.SELLER);
+            SessionManager.login(user);
+            SceneManager.showSellerDashboard();
+        } catch (IllegalArgumentException | IllegalStateException | SecurityException ex) {
+            showError(ex.getMessage());
         }
-        if (user.getRole() != UserRole.SELLER) {
-            showError("This account is not a Seller account. Use the correct portal.");
-            return;
-        }
-        if (!user.getPasswordHash().equals(password)) {
-            showError("Incorrect password.");
-            return;
-        }
-        if (!user.isActive()) {
-            showError("Account deactivated.");
-            return;
-        }
-        SessionManager.login(user);
-        SceneManager.showSellerDashboard();
     }
 
     private void showError(String msg) {
