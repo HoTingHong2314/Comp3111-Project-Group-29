@@ -66,6 +66,7 @@ first launch, when no data file exists yet.
 - Role-based access checks in the service layer (buyer / seller / admin).
 - Consistent JavaFX cards, sidebars, badges, notifications and profile forms.
 - JSON file-backed data store (`DummyDataService` + `MarketplaceDataStore`) with sample seed data on first run.
+- Reset Database action on the welcome screen restores the original seeded data after confirmation.
 - Listing view-count tracking when a live listing's detail screen is opened.
 - Searchable, retained chat history.
 
@@ -119,7 +120,7 @@ Price inputs (listing price, offers, counter-offers) accept only positive number
 
 - Data is stored in a local JSON file at `%USERPROFILE%\.hkust-marketplace\marketplace-data.json`
   (in the user home folder). It is created and seeded on first launch and reloaded on every start.
-- Every change is saved immediately; delete the JSON file to reset the app back to the seed data.
+- Every change is saved immediately; use **Reset Database** on the welcome screen, or delete the JSON file, to reset the app back to the seed data.
 - Unreadable JSON files are archived as `*.corrupt-<timestamp>` before reseeding, and data files
   written by a newer app version are rejected instead of being overwritten.
 - Legacy plaintext password values are upgraded to BCrypt hashes when the data file is loaded.

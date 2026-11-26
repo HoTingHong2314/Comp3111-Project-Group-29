@@ -139,6 +139,31 @@ public class DummyDataService {
         return Holder.INSTANCE;
     }
 
+    /**
+     * Clears all persisted state and restores the original seeded marketplace data.
+     */
+    public synchronized void resetToDefaults() {
+        users.clear();
+        listings.clear();
+        deals.clear();
+        notifications.clear();
+        reviews.clear();
+        dealExtras.clear();
+        chatThreads.clear();
+        chatThreadsById.clear();
+        chatMessages.clear();
+        reports.clear();
+        listingIdCounter.set(100);
+        dealIdCounter.set(500);
+        notifIdCounter.set(1);
+        reviewIdCounter.set(1);
+        chatThreadIdCounter.set(1);
+        chatMessageIdCounter.set(1);
+        reportIdCounter.set(1);
+        seedData();
+        persist();
+    }
+
     private synchronized void persist() {
         store.save(toSnapshot());
     }
